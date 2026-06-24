@@ -534,7 +534,7 @@
                         });
 
                         statusDiv.className = 'success-text';
-                        statusDiv.innerHTML = `🎉 Order Placed Successfully!<br>A confirmation email has been sent. Pick up your order this Friday at the main office at 2:45 PM.`;
+                        statusDiv.innerHTML = `🎉 Order Placed Successfully!<br>A confirmation email has been sent. Pick up your order this Friday at the school office at 2:45 PM.`;
                         document.querySelectorAll('.quantity-input').forEach(i => i.value = 0);
                         updateTotal();
 
@@ -546,7 +546,7 @@
                 } catch (e) {
                     console.error(e);
                     statusDiv.className = 'error-text';
-                    statusDiv.innerText = 'An error occurred. Please try again or contact PAC.';
+                    statusDiv.innerText = 'An error occurred. Please try again or contact henryandersonfundraising@gmail.com';
                     cardButton.disabled = false;
                 }
             });
