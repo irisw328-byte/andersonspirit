@@ -392,27 +392,14 @@
     </footer>
 </div>
 
-<script>
-    // ==========================================
-    // 🛠️ 專屬設定區
-    // ==========================================
-    
-    // ⚠️ 請把下面引號裡的網址，替換成您剛剛重新部署後拿到的最新 Web App URL
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1AvO2BObufCfW2ENW5EoTnLaDfhRD60zb1Fl7B79ZX4Mt6uSBIyuRlLWTwmBcUZZV/exec';
-    
-    const APPLICATION_ID = 'YOUR_SQUARE_APPLICATION_ID';
-    const LOCATION_ID = 'YOUR_SQUARE_LOCATION_ID';
-
-    let totalPrice = 0;
-    let orderItems = [];
-
-    // 將 Drive 連結轉換為公開圖片連結
+// 將 Drive 連結轉換為公開圖片連結 (終極破解版)
     function getDirectImageUrl(url) {
         if (!url) return '';
         if (url.includes('drive.google.com')) {
             const match = url.match(/[-\w]{25,}/);
             if (match) {
-                return `https://drive.google.com/uc?export=view&id=${match[0]}`;
+                // 使用 Google 隱藏的直連通道，繞過權限阻擋
+                return `https://lh3.googleusercontent.com/d/${match[0]}`;
             }
         }
         return url;
