@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anderson Spirit - PAC Fundraising</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
     <style>
         :root { --bg-body: #DFD5C9; --bg-card: #F5F1E7; --text-main: #232A31; --text-light: #646C73; --accent-rose: #A44C46; --border-soft: #D1C7BB; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -17,12 +16,10 @@
         .notice-box { border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 20px 40px; margin: 10px 0; text-align: center; }
         .highlight-text { font-weight: 700; text-transform: uppercase; font-size: 14.5px; margin: 8px 0; }
         section { background: var(--bg-card); padding: 40px; border-radius: 20px; box-shadow: 0 16px 40px rgba(35, 42, 49, 0.08); margin-bottom: 40px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group label { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-light); text-transform: uppercase; }
-        .form-group input { padding: 14px 16px; border: 1px solid var(--border-soft); background: #EFEBE0; border-radius: 10px; font-size: 15px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
+        .form-group input { width: 100%; padding: 14px; border: 1px solid var(--border-soft); background: #EFEBE0; border-radius: 10px; font-size: 15px; }
         .product-card { display: flex; align-items: center; border-bottom: 1px solid var(--border-soft); padding: 20px 0; }
-        .product-img { width: 90px; height: 90px; background: #DFD5C9; border-radius: 14px; margin-right: 25px; flex-shrink: 0; overflow: hidden; }
+        .product-img { width: 95px; height: 95px; background: #DFD5C9; border-radius: 14px; margin-right: 25px; flex-shrink: 0; overflow: hidden; }
         .quantity-selector { display: flex; align-items: center; background: #DFD5C9; border-radius: 30px; padding: 4px 6px; margin-left: auto; }
         .quantity-btn { width: 32px; height: 32px; border: none; background: none; cursor: pointer; font-size: 20px; }
         .submit-btn { width: 100%; background: var(--text-main); color: white; border: none; padding: 18px; border-radius: 30px; font-weight: 700; cursor: pointer; margin-top: 20px; }
@@ -39,42 +36,37 @@
         </div>
     </header>
 
-    <form id="order-form">
-        <section>
-            <h2>Contact & Details</h2>
-            <div class="form-grid">
-                <div class="form-group"><label>Parent Name</label><input type="text" id="parent-name" required></div>
-                <div class="form-group"><label>Email</label><input type="email" id="parent-email" required></div>
-                <div class="form-group"><label>Student Name</label><input type="text" id="student-name" required></div>
-                <div class="form-group"><label>Class / Div</label><input type="text" id="student-div" required></div>
-            </div>
-        </section>
+    <section>
+        <h2>Contact & Details</h2>
+        <div class="form-grid">
+            <div class="form-group"><input type="text" id="parent-name" placeholder="Parent Name"></div>
+            <div class="form-group"><input type="email" id="parent-email" placeholder="Email"></div>
+            <div class="form-group"><input type="text" id="student-name" placeholder="Student Name"></div>
+            <div class="form-group"><input type="text" id="student-div" placeholder="Class / Div"></div>
+        </div>
+    </section>
 
-        <section>
-            <h2>Collection</h2>
-            <div id="product-container">Loading...</div>
-            <div style="font-size:20px; font-weight:700; margin:20px 0;">Total: $<span id="total-amount">0.00</span></div>
-            <div id="card-container"></div>
-            <button id="card-button" class="submit-btn" type="button" disabled>Place Order & Pay</button>
-        </section>
-    </form>
+    <section>
+        <h2>Collection</h2>
+        <div id="product-container">Loading...</div>
+        <div style="font-size:20px; font-weight:700; margin:20px 0;">Total: $<span id="total-amount">0.00</span></div>
+        <button id="card-button" class="submit-btn" disabled>Place Order & Pay</button>
+    </section>
 
     <footer><p>📫 Question? Please email: henryandersonfundraising@gmail.com</p></footer>
 </div>
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1AvO2BObufCfW2ENW5EoTnLaDfhRD60zb1Fl7B79ZX4Mt6uSBIyuRlLWTwmBcUZZV/exec';
-
-    function getDriveImage(url) {
-        if (!url) return '';
-        if (url.includes('drive.google.com')) {
-            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-            return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : url;
-        }
-        return url;
+    
+    // 將 Drive 連結轉換為公開圖片連結
+    function convertDriveLink(url) {
+        if (!url || typeof url !== 'string') return '';
+        const idMatch = url.match(/[-\w]{25,}/);
+        return idMatch ? `https://lh3.googleusercontent.com/d/${idMatch[0]}` : url;
     }
 
-    async function init() {
+    async function load() {
         try {
             const res = await fetch(SCRIPT_URL);
             const data = await res.json();
@@ -84,36 +76,35 @@
             data.products.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                card.setAttribute('data-price', p.price);
                 card.innerHTML = `
-                    <div class="product-img"><img src="${getDriveImage(p.image)}" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="product-img"><img src="${convertDriveLink(p.image)}" style="width:100%;height:100%;object-fit:cover;"></div>
                     <div style="flex-grow:1;">
                         <div style="font-weight:600;">${p.title}</div>
-                        <div style="color:var(--accent-rose); font-weight:700;">$${p.price.toFixed(2)}</div>
+                        <div style="color:var(--accent-rose); font-weight:700;">$${parseFloat(p.price).toFixed(2)}</div>
                     </div>
                     <div class="quantity-selector">
                         <button type="button" class="quantity-btn dec">-</button>
-                        <input class="quantity-input" value="0" style="width:30px; border:none; text-align:center; font-weight:700;" readonly>
+                        <input class="quantity-input" value="0" readonly style="width:30px; border:none; text-align:center;">
                         <button type="button" class="quantity-btn inc">+</button>
                     </div>`;
                 container.appendChild(card);
             });
-
+            
             document.querySelectorAll('.inc').forEach(b => b.onclick = (e) => { e.target.previousElementSibling.value++; calc(); });
             document.querySelectorAll('.dec').forEach(b => b.onclick = (e) => { if(e.target.nextElementSibling.value > 0) e.target.nextElementSibling.value--; calc(); });
-        } catch(e) { console.error(e); }
+        } catch(e) { container.innerHTML = 'Error loading products.'; }
     }
 
     function calc() {
         let total = 0;
         document.querySelectorAll('.product-card').forEach(c => {
-            total += parseInt(c.querySelector('.quantity-input').value) * parseFloat(c.getAttribute('data-price'));
+            let price = parseFloat(c.querySelector('.product-img').nextElementSibling.innerText.split('$')[1]);
+            total += parseInt(c.querySelector('.quantity-input').value) * price;
         });
         document.getElementById('total-amount').innerText = total.toFixed(2);
         document.getElementById('card-button').disabled = (total <= 0);
     }
-    
-    init();
+    load();
 </script>
 </body>
 </html>
