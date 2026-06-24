@@ -3,106 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anderson Spirit - PAC Fundraising</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Anderson Spirit</title>
     <style>
-        :root { --bg-body: #DFD5C9; --bg-card: #F5F1E7; --text-main: #232A31; --text-light: #646C73; --accent-rose: #A44C46; --border-soft: #D1C7BB; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text-main); padding: 40px 20px; line-height: 1.6; }
-        .container { max-width: 850px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 50px; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 20px; font-weight: 700; }
-        h1 span { font-style: italic; color: var(--accent-rose); }
-        .notice-box { border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 20px 40px; margin: 10px 0; text-align: center; }
-        .highlight-text { font-weight: 700; text-transform: uppercase; font-size: 14.5px; margin: 8px 0; }
-        section { background: var(--bg-card); padding: 40px; border-radius: 20px; box-shadow: 0 16px 40px rgba(35, 42, 49, 0.08); margin-bottom: 40px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
-        .form-group input { width: 100%; padding: 14px; border: 1px solid var(--border-soft); background: #EFEBE0; border-radius: 10px; font-size: 15px; }
-        .product-card { display: flex; align-items: center; border-bottom: 1px solid var(--border-soft); padding: 20px 0; }
-        .product-img { width: 95px; height: 95px; background: #DFD5C9; border-radius: 14px; margin-right: 25px; flex-shrink: 0; overflow: hidden; }
-        .quantity-selector { display: flex; align-items: center; background: #DFD5C9; border-radius: 30px; padding: 4px 6px; margin-left: auto; }
-        .quantity-btn { width: 32px; height: 32px; border: none; background: none; cursor: pointer; font-size: 20px; }
-        .submit-btn { width: 100%; background: var(--text-main); color: white; border: none; padding: 18px; border-radius: 30px; font-weight: 700; cursor: pointer; margin-top: 20px; }
-        footer { text-align: center; margin-top: 40px; font-size: 13px; color: var(--text-light); }
+        :root { --bg-body: #DFD5C9; --bg-card: #F5F1E7; --text-main: #232A31; }
+        body { background: var(--bg-body); color: var(--text-main); padding: 40px 20px; font-family: sans-serif; }
+        .container { max-width: 850px; margin: auto; }
+        section { background: var(--bg-card); padding: 30px; border-radius: 15px; margin-bottom: 20px; }
+        .product-card { display: flex; align-items: center; border-bottom: 1px solid #ccc; padding: 15px 0; }
     </style>
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>Anderson <span>Spirit</span></h1>
-        <div class="notice-box">
-            <p class="highlight-text">📌 Orders close every Wednesday at 10:00 PM.</p>
-            <p class="highlight-text">📦 Pick up at the school office on Fridays after school at 2:45 PM.</p>
-        </div>
-    </header>
-
-    <section>
-        <h2>Contact & Details</h2>
-        <div class="form-grid">
-            <div class="form-group"><input type="text" id="parent-name" placeholder="Parent Name"></div>
-            <div class="form-group"><input type="email" id="parent-email" placeholder="Email"></div>
-            <div class="form-group"><input type="text" id="student-name" placeholder="Student Name"></div>
-            <div class="form-group"><input type="text" id="student-div" placeholder="Class / Div"></div>
-        </div>
-    </section>
-
     <section>
         <h2>Collection</h2>
         <div id="product-container">Loading...</div>
-        <div style="font-size:20px; font-weight:700; margin:20px 0;">Total: $<span id="total-amount">0.00</span></div>
-        <button id="card-button" class="submit-btn" disabled>Place Order & Pay</button>
     </section>
-
-    <footer><p>📫 Question? Please email: henryandersonfundraising@gmail.com</p></footer>
 </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1AvO2BObufCfW2ENW5EoTnLaDfhRD60zb1Fl7B79ZX4Mt6uSBIyuRlLWTwmBcUZZV/exec';
-    
-    // 將 Drive 連結轉換為公開圖片連結
-    function convertDriveLink(url) {
-        if (!url || typeof url !== 'string') return '';
-        const idMatch = url.match(/[-\w]{25,}/);
-        return idMatch ? `https://lh3.googleusercontent.com/d/${idMatch[0]}` : url;
-    }
+    // ⚠️ 請務必把這行連結換成您剛剛從「管理部署」複製出來的最新的那個 URL
+    const SCRIPT_URL = '貼上您最新的 Web App URL';
 
     async function load() {
+        const container = document.getElementById('product-container');
         try {
             const res = await fetch(SCRIPT_URL);
+            // 檢查是否取得資料
+            if (!res.ok) throw new Error('伺服器連線失敗');
             const data = await res.json();
-            const container = document.getElementById('product-container');
-            container.innerHTML = '';
             
-            data.products.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <div class="product-img"><img src="${convertDriveLink(p.image)}" style="width:100%;height:100%;object-fit:cover;"></div>
-                    <div style="flex-grow:1;">
-                        <div style="font-weight:600;">${p.title}</div>
-                        <div style="color:var(--accent-rose); font-weight:700;">$${parseFloat(p.price).toFixed(2)}</div>
-                    </div>
-                    <div class="quantity-selector">
-                        <button type="button" class="quantity-btn dec">-</button>
-                        <input class="quantity-input" value="0" readonly style="width:30px; border:none; text-align:center;">
-                        <button type="button" class="quantity-btn inc">+</button>
-                    </div>`;
-                container.appendChild(card);
-            });
-            
-            document.querySelectorAll('.inc').forEach(b => b.onclick = (e) => { e.target.previousElementSibling.value++; calc(); });
-            document.querySelectorAll('.dec').forEach(b => b.onclick = (e) => { if(e.target.nextElementSibling.value > 0) e.target.nextElementSibling.value--; calc(); });
-        } catch(e) { container.innerHTML = 'Error loading products.'; }
-    }
+            if (!data.products || data.products.length === 0) {
+                container.innerHTML = "目前沒有商品資料，請檢查試算表 Product 頁面是否填寫正確。";
+                return;
+            }
 
-    function calc() {
-        let total = 0;
-        document.querySelectorAll('.product-card').forEach(c => {
-            let price = parseFloat(c.querySelector('.product-img').nextElementSibling.innerText.split('$')[1]);
-            total += parseInt(c.querySelector('.quantity-input').value) * price;
-        });
-        document.getElementById('total-amount').innerText = total.toFixed(2);
-        document.getElementById('card-button').disabled = (total <= 0);
+            container.innerHTML = '';
+            data.products.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'product-card';
+                div.innerHTML = `<div>${p.title} - $${p.price}</div>`;
+                container.appendChild(div);
+            });
+        } catch(e) {
+            container.innerHTML = "錯誤：" + e.message + "。請確認 SCRIPT_URL 是否正確且已設為「所有人」存取。";
+        }
     }
     load();
 </script>
