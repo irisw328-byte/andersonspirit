@@ -8,15 +8,14 @@
     <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
     <style>
         :root {
-            /* 🎨 高級精品雜誌風配色 */
-            --bg-body: #FBF9F6;          /* 背景：優雅的雪紡象牙白 */
-            --bg-card: #FFFFFF;          /* 卡片：純白，帶來呼吸感 */
-            --text-main: #1D232A;        /* 文字主色：午夜深灰藍，極致知性 */
-            --text-light: #737A82;       /* 文字副色：優雅的銀灰色 */
-            --accent-rose: #C87971;      /* 點綴色：青春微奢的柔玫瑰磚紅 */
-            --accent-hover: #B2655E;
-            --border-soft: #EBE5DF;      /* 邊框：極淺的燕麥色 */
-            --shadow-lux: 0 16px 40px rgba(29, 35, 42, 0.04); /* 高級的輕柔陰影 */
+            /* 🎨 高級精品雜誌風配色 (無反光溫潤版) */
+            --bg-body: #DFD5C9;          /* 背景：優雅的燕麥奶茶色 */
+            --bg-card: #F5F1E7;          /* 卡片：溫潤的珍珠奶霜色，不刺眼反光 */
+            --text-main: #232A31;        /* 文字主色：極深碳藍色，知性且高對比 */
+            --text-light: #646C73;       /* 文字副色：深石板灰 */
+            --accent-rose: #A44C46;      /* 點綴色：經典深磚紅，亮麗有質感 */
+            --border-soft: #D1C7BB;      /* 邊框：柔和的燕麥灰 */
+            --shadow-lux: 0 16px 40px rgba(35, 42, 49, 0.08); /* 輕柔立體陰影 */
         }
 
         * {
@@ -71,7 +70,7 @@
 
         .highlight-text {
             font-family: 'Inter', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-main);
             font-size: 14.5px;
             text-transform: uppercase;
@@ -140,7 +139,7 @@
         .form-group input {
             padding: 14px 16px;
             border: 1px solid var(--border-soft);
-            background-color: var(--bg-card);
+            background-color: #EFEBE0;
             border-radius: 10px;
             font-size: 15px;
             color: var(--text-main);
@@ -150,7 +149,8 @@
 
         .form-group input:focus {
             border-color: var(--text-main);
-            box-shadow: 0 0 0 4px rgba(29, 35, 42, 0.05);
+            background-color: var(--bg-card);
+            box-shadow: 0 0 0 4px rgba(35, 42, 49, 0.05);
         }
 
         /* 商品卡片設計 */
@@ -220,7 +220,7 @@
         .product-price {
             font-size: 16px;
             color: var(--accent-rose);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         /* 數量選擇器 (精品膠囊造型) */
@@ -249,7 +249,7 @@
             transition: background 0.2s;
         }
 
-        .quantity-btn:hover { background: #EBE5DF; }
+        .quantity-btn:hover { background: #D1C7BB; }
 
         .quantity-input {
             width: 36px;
@@ -257,7 +257,7 @@
             border: none;
             background: transparent;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-main);
         }
 
@@ -291,7 +291,7 @@
             background: var(--bg-body);
         }
 
-        /* 結帳按鈕 (時尚圓潤造型) */
+        /* 結帳按鈕 (加深且顯眼) */
         .submit-btn {
             width: 100%;
             background-color: var(--text-main);
@@ -299,7 +299,7 @@
             border: none;
             padding: 18px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             border-radius: 30px;
@@ -310,12 +310,14 @@
 
         .submit-btn:hover { 
             background-color: var(--accent-rose);
-            box-shadow: 0 8px 20px rgba(200, 121, 113, 0.3);
+            box-shadow: 0 8px 20px rgba(164, 76, 70, 0.3);
             transform: translateY(-2px);
         }
 
+        /* 尚未選購商品時的按鈕顏色 (加深處理) */
         .submit-btn:disabled {
-            background-color: #D3D6D9;
+            background-color: #9C968F;
+            color: #F5F1E7;
             box-shadow: none;
             cursor: not-allowed;
             transform: none;
@@ -346,7 +348,7 @@
         #payment-status {
             margin-top: 25px;
             text-align: center;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
         }
         
