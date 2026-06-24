@@ -8,7 +8,7 @@
     <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
     <style>
         :root {
-            var(--bg-body): #DFD5C9;
+            --bg-body: #DFD5C9;
             --bg-card: #F5F1E7;
             --text-main: #232A31;
             --text-light: #646C73;
@@ -117,7 +117,7 @@
 </div>
 
 <script>
-    // 您專屬的試算表連動網址已設定完畢
+    // 專屬試算表連動網址
     const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1AvO2BObufCfW2ENW5EoTnLaDfhRD60zb1Fl7B79ZX4Mt6uSBIyuRlLWTwmBcUZZV/exec';
     const APPLICATION_ID = 'YOUR_SQUARE_APPLICATION_ID';
     const LOCATION_ID = 'YOUR_SQUARE_LOCATION_ID';
@@ -125,7 +125,19 @@
     let totalPrice = 0;
     let orderItems = [];
 
-    // 網頁載入時，自動去試算表抓商品！
+    // 自動轉譯 Google Drive 圖片連結的神奇函數
+    function convertGoogleDriveUrl(url) {
+        if (url.includes('drive.google.com')) {
+            // 抓出 Google Drive 連結裡的獨一無二圖片 ID
+            let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                // 轉換成可以直接顯示相片的直連格式
+                return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+            }
+        }
+        return url;
+    }
+
     async function loadProductsFromSheet() {
         const container = document.getElementById('product-container');
         try {
@@ -136,9 +148,11 @@
                 container.innerHTML = ''; 
                 data.products.forEach(item => {
                     
-                    // 判斷 Image 欄位是圖片網址還是純文字(Emoji)
-                    let imageHtml = item.image.startsWith('http') 
-                        ? `<img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;">` 
+                    // 經過轉譯器處理圖片網址
+                    let finalImageUrl = convertGoogleDriveUrl(item.image);
+                    
+                    let imageHtml = finalImageUrl.startsWith('http') 
+                        ? `<img src="${finalImageUrl}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;">` 
                         : item.image;
 
                     const card = document.createElement('div');
@@ -257,7 +271,6 @@
         } catch (e) { console.error(e); }
     }
 
-    // 啟動功能：抓取試算表商品並載入結帳系統
     loadProductsFromSheet();
     initializeSquare();
 </script>
