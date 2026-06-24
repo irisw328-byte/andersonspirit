@@ -7,24 +7,26 @@
     <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
     <style>
         :root {
-            --primary-blue: #7B92A2;       /* Morandi Blue */
-            --primary-hover: #667C8C;
-            --accent-green: #96A48F;       /* Morandi Green */
-            --bg-milktea: #EFE9DC;         /* Morandi Milk Tea Background */
-            --card-cream: #FAF7F0;         /* Soft Cream for Cards */
-            --text-dark: #4A525A;          /* Muted Dark Grey Text */
-            --border-muted: #D1C9BC;
+            /* 🎨 全新文青莫蘭迪配色 (高對比度) */
+            --bg-oatmeal: #DCD7CD;       /* 背景：沉穩的燕麥奶咖色，降低反光感 */
+            --card-warm: #F2EFE9;        /* 卡片底色：溫潤的象牙灰白，避免慘白 */
+            --primary-slate: #5C7689;    /* 主色調：岩石灰藍，非常適合文青藝術感 */
+            --primary-hover: #4A6070;
+            --accent-sage: #6B8069;      /* 點綴色：鼠尾草綠，用在價格與提示 */
+            --text-dark: #3A4045;        /* 文字：深碳灰色，確保閱讀清晰不吃力 */
+            --text-muted: #6B737A;
+            --border-soft: #C2BBB1;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: "Helvetica Neue", Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-milktea);
+            background-color: var(--bg-oatmeal);
             color: var(--text-dark);
             line-height: 1.6;
             padding: 30px 20px;
@@ -33,59 +35,60 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: var(--card-cream);
+            background: var(--card-warm);
             padding: 40px 35px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(74, 82, 90, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 12px 25px rgba(58, 64, 69, 0.1);
         }
 
         header {
             text-align: center;
             margin-bottom: 35px;
-            border-bottom: 2px dashed var(--primary-blue);
+            border-bottom: 1px solid var(--border-soft);
             padding-bottom: 25px;
         }
 
         header h1 {
-            color: var(--primary-blue);
-            font-size: 28px;
-            letter-spacing: 1px;
+            color: var(--primary-slate);
+            font-size: 32px;
+            letter-spacing: 2px;
             margin-bottom: 12px;
             font-weight: 700;
+            font-family: "Georgia", serif; /* 增加文青排版感 */
         }
 
         header .notice-box {
-            background-color: rgba(150, 164, 143, 0.15);
-            border-left: 4px solid var(--accent-green);
-            padding: 12px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+            background-color: rgba(107, 128, 105, 0.1);
+            border-left: 4px solid var(--accent-sage);
+            padding: 15px;
+            margin: 20px 0 10px 0;
+            border-radius: 0 6px 6px 0;
             text-align: left;
         }
 
         header p {
-            font-size: 14px;
+            font-size: 14.5px;
             color: var(--text-dark);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         header .highlight-text {
-            font-weight: bold;
-            color: var(--text-dark);
+            font-weight: 700;
+            color: var(--primary-slate);
         }
 
         h2 {
             font-size: 18px;
-            color: var(--primary-blue);
+            color: var(--primary-slate);
             margin-bottom: 20px;
-            border-left: 4px solid var(--accent-green);
-            padding-left: 10px;
+            border-left: 4px solid var(--primary-slate);
+            padding-left: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         section {
-            margin-bottom: 40px;
+            margin-bottom: 45px;
         }
 
         .form-grid {
@@ -95,9 +98,7 @@
         }
 
         @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
+            .form-grid { grid-template-columns: 1fr; }
         }
 
         .form-group {
@@ -109,43 +110,44 @@
             font-size: 13px;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--text-dark);
+            letter-spacing: 0.5px;
         }
 
         .form-group input {
-            padding: 12px;
-            border: 1px solid var(--border-muted);
-            background-color: #fff;
-            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-soft);
+            background-color: #FAFAFA;
+            border-radius: 6px;
             font-size: 14px;
             color: var(--text-dark);
             outline: none;
-            transition: all 0.2s ease;
+            transition: border-color 0.3s;
         }
 
         .form-group input:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(123, 146, 162, 0.2);
+            border-color: var(--primary-slate);
+            background-color: #FFFFFF;
         }
 
         .product-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .product-card {
             display: flex;
-            border: 1px solid var(--border-muted);
-            border-radius: 12px;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
             padding: 20px;
-            background: #ffffff;
+            background: #FFFFFF;
             align-items: center;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .product-card:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
         @media (max-width: 500px) {
@@ -153,24 +155,22 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .product-img {
-                margin-bottom: 15px;
-            }
+            .product-img { margin-bottom: 15px; }
+            .quantity-selector { margin-top: 15px; width: 100%; justify-content: flex-end; }
         }
 
         .product-img {
-            width: 90px;
-            height: 90px;
-            background-color: #F4F1EA;
-            border-radius: 8px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--card-warm);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            color: #9A9182;
+            font-size: 30px;
             margin-right: 20px;
             flex-shrink: 0;
-            border: 1px solid var(--border-muted);
+            border: 1px solid var(--border-soft);
         }
 
         .product-info {
@@ -182,41 +182,41 @@
             font-size: 16px;
             font-weight: 700;
             color: var(--text-dark);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .product-desc {
             font-size: 13px;
-            color: #7A828A;
-            margin-bottom: 8px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.5;
         }
 
         .product-price {
-            font-size: 15px;
-            color: var(--accent-green);
+            font-size: 16px;
+            color: var(--accent-sage);
             font-weight: 700;
         }
 
         .quantity-selector {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background-color: #F4F1EA;
-            padding: 4px;
-            border-radius: 8px;
-            border: 1px solid var(--border-muted);
+            gap: 12px;
+            background-color: var(--card-warm);
+            padding: 6px;
+            border-radius: 6px;
         }
 
         .quantity-btn {
-            width: 32px;
-            height: 32px;
-            background: #ffffff;
-            border: 1px solid var(--border-muted);
-            border-radius: 6px;
+            width: 30px;
+            height: 30px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 16px;
-            color: var(--text-dark);
+            font-size: 18px;
+            color: var(--primary-slate);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -224,12 +224,10 @@
             transition: background 0.2s;
         }
 
-        .quantity-btn:hover {
-            background: var(--bg-milktea);
-        }
+        .quantity-btn:hover { background: var(--bg-oatmeal); }
 
         .quantity-input {
-            width: 30px;
+            width: 25px;
             text-align: center;
             border: none;
             background: transparent;
@@ -239,10 +237,9 @@
         }
 
         .summary-box {
-            background: rgba(121, 146, 162, 0.1);
-            border: 1px dashed var(--primary-blue);
-            border-radius: 10px;
-            padding: 18px;
+            background: rgba(92, 118, 137, 0.08);
+            border-radius: 8px;
+            padding: 20px;
             text-align: right;
             font-size: 16px;
             font-weight: 600;
@@ -250,62 +247,55 @@
         }
 
         .summary-box span {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: var(--primary-blue);
-            margin-left: 5px;
+            color: var(--primary-slate);
+            margin-left: 8px;
         }
 
         #card-container {
             margin: 20px 0;
-            min-height: 44px;
+            min-height: 48px;
             padding: 12px;
-            border: 1px solid var(--border-muted);
-            border-radius: 8px;
-            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            border-radius: 6px;
+            background: #FFFFFF;
         }
 
         .submit-btn {
             width: 100%;
-            background-color: var(--primary-blue);
+            background-color: var(--primary-slate);
             color: white;
             border: none;
-            padding: 16px;
+            padding: 18px;
             font-size: 16px;
             font-weight: 700;
-            border-radius: 8px;
+            letter-spacing: 1px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(123, 146, 162, 0.2);
+            transition: background 0.3s;
         }
 
-        .submit-btn:hover {
-            background-color: var(--primary-hover);
-        }
+        .submit-btn:hover { background-color: var(--primary-hover); }
 
         .submit-btn:disabled {
-            background-color: #C8C2B7;
-            box-shadow: none;
+            background-color: #B5B0A8;
             cursor: not-allowed;
         }
 
         footer {
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: center;
             font-size: 13px;
-            color: #7A828A;
-            border-top: 1px solid var(--border-muted);
-            padding-top: 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-soft);
+            padding-top: 25px;
         }
 
         footer a {
-            color: var(--primary-blue);
+            color: var(--primary-slate);
             text-decoration: none;
             font-weight: 600;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
         }
 
         #payment-status {
@@ -315,8 +305,8 @@
             font-size: 15px;
         }
         
-        .success-text { color: var(--accent-green); }
-        .error-text { color: #C06C6C; }
+        .success-text { color: var(--accent-sage); }
+        .error-text { color: #A85A5A; }
     </style>
 </head>
 <body>
@@ -325,8 +315,8 @@
     <header>
         <h1>Anderson Spirit</h1>
         <div class="notice-box">
-            <p class="highlight-text">⏰ Orders close every Wednesday at 10:00 PM.</p>
-            <p>🎒 Pick up at the school office on Fridays after school at 2:45 PM.</p>
+            <p class="highlight-text">📌Orders close every Wednesday at 10:00 PM.</p>
+            <p>📦Pick up at the school office on Fridays after school at 2:45 PM.</p>
         </div>
     </header>
 
@@ -339,11 +329,11 @@
                     <input type="text" id="parent-name" placeholder="e.g., Jerry Chan" required>
                 </div>
                 <div class="form-group">
-                    <label for="parent-email">Email Address (For receipt & updates)</label>
+                    <label for="parent-email">Email Address (For receipt)</label>
                     <input type="email" id="parent-email" placeholder="e.g., jerry@example.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="student-name">Student Full Name (For pickup matching)</label>
+                    <label for="student-name">Student Full Name</label>
                     <input type="text" id="student-name" placeholder="e.g., Evan Chan" required>
                 </div>
                 <div class="form-group">
@@ -355,51 +345,8 @@
 
         <section>
             <h2>Step 2: Select Items</h2>
-            <div class="product-list">
-                
-                <div class="product-card" data-id="p1" data-title="Anderson Spirit Limited Edition T-Shirt" data-price="25.00">
-                    <div class="product-img">👕 T-Shirt</div>
-                    <div class="product-info">
-                        <div class="product-title">Anderson Spirit Limited Edition T-Shirt</div>
-                        <div class="product-desc">100% cotton, comfortable, and features our exclusive school spirit design.</div>
-                        <div class="product-price">$25.00 CAD</div>
-                    </div>
-                    <div class="quantity-selector">
-                        <div class="quantity-btn dec-btn">-</div>
-                        <input type="text" class="quantity-input" value="0" readonly>
-                        <div class="quantity-btn inc-btn">+</div>
-                    </div>
+            <div id="product-container" class="product-list">
                 </div>
-
-                <div class="product-card" data-id="p2" data-title="Premium Hand-Drawn Sticker Pack" data-price="5.00">
-                    <div class="product-img">✨ Stickers</div>
-                    <div class="product-info">
-                        <div class="product-title">Premium Hand-Drawn Sticker Pack</div>
-                        <div class="product-desc">Water-resistant, custom contour-cut. Perfect for water bottles and laptops.</div>
-                        <div class="product-price">$5.00 CAD</div>
-                    </div>
-                    <div class="quantity-selector">
-                        <div class="quantity-btn dec-btn">-</div>
-                        <input type="text" class="quantity-input" value="0" readonly>
-                        <div class="quantity-btn inc-btn">+</div>
-                    </div>
-                </div>
-
-                <div class="product-card" data-id="p3" data-title="Eco-Friendly Stainless Steel Tumbler" data-price="20.00">
-                    <div class="product-img">🥤 Tumbler</div>
-                    <div class="product-info">
-                        <div class="product-title">Eco-Friendly Stainless Steel Tumbler</div>
-                        <div class="product-desc">Double-wall vacuum insulated for hot or cold drinks, with a convenient carrying handle.</div>
-                        <div class="product-price">$20.00 CAD</div>
-                    </div>
-                    <div class="quantity-selector">
-                        <div class="quantity-btn dec-btn">-</div>
-                        <input type="text" class="quantity-input" value="0" readonly>
-                        <div class="quantity-btn inc-btn">+</div>
-                    </div>
-                </div>
-
-            </div>
         </section>
 
         <section>
@@ -407,9 +354,7 @@
             <div class="summary-box">
                 Total Amount: $<span id="total-amount">0.00</span> CAD
             </div>
-            
             <div id="card-container"></div>
-            
             <button id="card-button" class="submit-btn" type="button" disabled>Place Order & Pay</button>
             <div id="payment-status"></div>
         </section>
@@ -421,6 +366,38 @@
 </div>
 
 <script>
+    // ==========================================
+    // 🛠️ 【簡易商品後臺設定區】
+    // 未來要新增、刪除或修改商品，只要改這裡的文字即可！
+    // ==========================================
+    const PRODUCT_CATALOG = [
+        {
+            id: 'p1',
+            title: 'Anderson Spirit Limited Edition T-Shirt',
+            desc: '100% cotton, comfortable, and features our exclusive school spirit design.',
+            price: 25.00,
+            emoji: '👕'
+        },
+        {
+            id: 'p2',
+            title: 'Premium Hand-Drawn Sticker Pack',
+            desc: 'Water-resistant, custom contour-cut. Perfect for water bottles and laptops.',
+            price: 5.00,
+            emoji: '✨'
+        },
+        {
+            id: 'p3',
+            title: 'Eco-Friendly Stainless Steel Tumbler',
+            desc: 'Double-wall vacuum insulated for hot or cold drinks, with a carrying handle.',
+            price: 20.00,
+            emoji: '🥤'
+        }
+        // 若要加第四個商品，就在上方加逗號，然後複製一段下來改即可
+    ];
+    // ==========================================
+
+
+    // 系統金鑰設定區
     const APPLICATION_ID = 'YOUR_SQUARE_APPLICATION_ID';
     const LOCATION_ID = 'YOUR_SQUARE_LOCATION_ID';
     const GOOGLE_APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
@@ -428,25 +405,57 @@
     let totalPrice = 0;
     let orderItems = [];
 
-    // Quantity selectors and real-time total calculation
-    document.querySelectorAll('.product-card').forEach(card => {
-        const incBtn = card.querySelector('.inc-btn');
-        const decBtn = card.querySelector('.dec-btn');
-        const qtyInput = card.querySelector('.quantity-input');
+    // 自動生成商品卡片的功能
+    function renderProducts() {
+        const container = document.getElementById('product-container');
+        
+        PRODUCT_CATALOG.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.setAttribute('data-id', item.id);
+            card.setAttribute('data-title', item.title);
+            card.setAttribute('data-price', item.price.toFixed(2));
 
-        incBtn.addEventListener('click', () => {
-            qtyInput.value = parseInt(qtyInput.value) + 1;
-            updateTotal();
+            card.innerHTML = `
+                <div class="product-img">${item.emoji}</div>
+                <div class="product-info">
+                    <div class="product-title">${item.title}</div>
+                    <div class="product-desc">${item.desc}</div>
+                    <div class="product-price">$${item.price.toFixed(2)} CAD</div>
+                </div>
+                <div class="quantity-selector">
+                    <div class="quantity-btn dec-btn">-</div>
+                    <input type="text" class="quantity-input" value="0" readonly>
+                    <div class="quantity-btn inc-btn">+</div>
+                </div>
+            `;
+            container.appendChild(card);
         });
 
-        decBtn.addEventListener('click', () => {
-            let qty = parseInt(qtyInput.value);
-            if (qty > 0) {
-                qtyInput.value = qty - 1;
+        attachQuantityEvents();
+    }
+
+    // 處理加減按鈕與金額計算
+    function attachQuantityEvents() {
+        document.querySelectorAll('.product-card').forEach(card => {
+            const incBtn = card.querySelector('.inc-btn');
+            const decBtn = card.querySelector('.dec-btn');
+            const qtyInput = card.querySelector('.quantity-input');
+
+            incBtn.addEventListener('click', () => {
+                qtyInput.value = parseInt(qtyInput.value) + 1;
                 updateTotal();
-            }
+            });
+
+            decBtn.addEventListener('click', () => {
+                let qty = parseInt(qtyInput.value);
+                if (qty > 0) {
+                    qtyInput.value = qty - 1;
+                    updateTotal();
+                }
+            });
         });
-    });
+    }
 
     function updateTotal() {
         totalPrice = 0;
@@ -468,7 +477,7 @@
         document.getElementById('card-button').disabled = (totalPrice <= 0);
     }
 
-    // Initialize Square Web Payments SDK
+    // Square 金流初始化
     async function initializeSquare() {
         if (!window.Square) {
             document.getElementById('payment-status').innerText = 'Failed to load payment module. Please check your connection.';
@@ -519,9 +528,7 @@
                         const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                             method: 'POST',
                             mode: 'no-cors',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
+                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(orderData)
                         });
 
@@ -538,7 +545,7 @@
                 } catch (e) {
                     console.error(e);
                     statusDiv.className = 'error-text';
-                    statusDiv.innerText = 'An error occurred during network transit. Please try again or contact PAC.';
+                    statusDiv.innerText = 'An error occurred. Please try again or contact PAC.';
                     cardButton.disabled = false;
                 }
             });
@@ -548,6 +555,8 @@
         }
     }
 
+    // 啟動網頁功能
+    renderProducts();
     initializeSquare();
 </script>
 
