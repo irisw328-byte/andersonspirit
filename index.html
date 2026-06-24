@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏫 學校 PAC 義賣線上預購系統</title>
+    <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+    <style>
+        :root {
+            --primary-color: #ffb6c1; /* 溫馨粉色 */
+            --primary-hover: #ffa0b4;
+            --bg-color: #fcfaf2; /* 柔和米白 */
+            --text-color: #4a4a4a;
+            --card-bg: #ffffff;
+            --border-color: #e2e2e2;
+            --accent-color: #7bc0a3; /* 清新綠色 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed var(--primary-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            color: #d17a8c;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 14px;
+            color: #888;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 8px;
+        }
+
+        section {
+            margin-bottom: 35px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #666;
+        }
+
+        .form-group input {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .product-card {
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            background: #fff;
+            align-items: center;
+        }
+
+        @media (max-width: 500px) {
+            .product-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .product-img {
+                margin-bottom: 10px;
+            }
+        }
+
+        .product-img {
+            width: 90px;
+            height: 90px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #aaa;
+            margin-right: 15px;
+            flex-shrink: 0;
+            border: 1px solid #eee;
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 15px;
+            color: #e56a7d;
+            font-weight: bold;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .quantity-btn:hover {
+            background: #f9f9f9;
+        }
+
+        .quantity-input {
+            width: 35px;
+            text-align: center;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .summary-box {
+            background: #fff9fa;
+            border: 1px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: right;
+            font-size: 16px;
+        }
+
+        .summary-box span {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e56a7d;
+            margin-left: 5px;
+        }
+
+        #card-container {
+            margin: 15px 0;
+            min-height: 40px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 4px 12px rgba(255,182,193,0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .submit-btn:disabled {
+            background-color: #ccc;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        #payment-status {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .success-text { color: var(--accent-color); }
+        .error-text { color: #e56a7d; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🏫 學校 PAC 義賣限時預購選單</h1>
+        <p>線上刷卡一氣呵成 • 週五放學 Office 輕鬆憑名領取</p>
+    </header>
+
+    <form id="order-form">
+        <section>
+            <h2>第一步：填寫領取人資訊</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="parent-name">家長/訂購人姓名</label>
+                    <input type="text" id="parent-name" placeholder="例如：Jerry Chan" required>
+                </div>
+                <div class="form-group">
+                    <label for="parent-email">電子郵件 Email (接收電子發票用)</label>
+                    <input type="email" id="parent-email" placeholder="例如：jerry@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-name">學生姓名 (領取對照用)</label>
+                    <input type="text" id="student-name" placeholder="例如：Evan Chan" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-div">學生班級 / Division</label>
+                    <input type="text" id="student-div" placeholder="例如：Div 5" required>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>第二步：挑選義賣商品</h2>
+            <div class="product-list">
+                
+                <div class="product-card" data-id="p1" data-title="Anderson 限定紀念 T-Shirt" data-price="25.00">
+                    <div class="product-img">👕 紀念 T-Shirt</div>
+                    <div class="product-info">
+                        <div class="product-title">Anderson 限定紀念 T-Shirt</div>
+                        <div class="product-desc">純棉舒適，Anderson Spirit 獨家設計款。</div>
+                        <div class="product-price">$25.00 CAD</div>
+                    </div>
+                    <div class="quantity-selector">
+                        <div class="quantity-btn dec-btn">-</div>
+                        <input type="text" class="quantity-input" value="0" readonly>
+                        <div class="quantity-btn inc-btn">+</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="p2" data-title="手繪風精美貼紙組" data-price="5.00">
+                    <div class="product-img">✨ 精美貼紙</div>
+                    <div class="product-info">
+                        <div class="product-title">手繪風精美貼紙組</div>
+                        <div class="product-desc">防潑水設計，可貼於水壺、筆電。</div>
+                        <div class="product-price">$5.00 CAD</div>
+                    </div>
+                    <div class="quantity-selector">
+                        <div class="quantity-btn dec-btn">-</div>
+                        <input type="text" class="quantity-input" value="0" readonly>
+                        <div class="quantity-btn inc-btn">+</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="p3" data-title="環保不鏽鋼保溫杯" data-price="20.00">
+                    <div class="product-img">🥤 保溫杯</div>
+                    <div class="product-info">
+                        <div class="product-title">環保不鏽鋼保溫杯</div>
+                        <div class="product-desc">雙層真空保溫保冷，附提把安全實用。</div>
+                        <div class="product-price">$20.00 CAD</div>
+                    </div>
+                    <div class="quantity-selector">
+                        <div class="quantity-btn dec-btn">-</div>
+                        <input type="text" class="quantity-input" value="0" readonly>
+                        <div class="quantity-btn inc-btn">+</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2>第三步：確認金額並進行安全付款</h2>
+            <div class="summary-box">
+                總結訂單金額：$<span id="total-amount">0.00</span> CAD
+            </div>
+            
+            <div id="card-container"></div>
+            
+            <button id="card-button" class="submit-btn" type="button" disabled>確認付款並提交訂單</button>
+            <div id="payment-status"></div>
+        </section>
+    </form>
+</div>
+
+<script>
+    // 💡 之後這裡要換成您申請的 Square ID 跟 Google Apps Script 網址喔！
+    const APPLICATION_ID = 'YOUR_SQUARE_APPLICATION_ID';
+    const LOCATION_ID = 'YOUR_SQUARE_LOCATION_ID';
+    const GOOGLE_APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+
+    let totalPrice = 0;
+    let orderItems = [];
+
+    // 處理商品數量的加減與金額即時計算
+    document.querySelectorAll('.product-card').forEach(card => {
+        const incBtn = card.querySelector('.inc-btn');
+        const decBtn = card.querySelector('.dec-btn');
+        const qtyInput = card.querySelector('.quantity-input');
+
+        incBtn.addEventListener('click', () => {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+            updateTotal();
+        });
+
+        decBtn.addEventListener('click', () => {
+            let qty = parseInt(qtyInput.value);
+            if (qty > 0) {
+                qtyInput.value = qty - 1;
+                updateTotal();
+            }
+        });
+    });
+
+    function updateTotal() {
+        totalPrice = 0;
+        orderItems = [];
+        
+        document.querySelectorAll('.product-card').forEach(card => {
+            const qty = parseInt(card.querySelector('.quantity-input').value);
+            if (qty > 0) {
+                const price = parseFloat(card.getAttribute('data-price'));
+                const title = card.getAttribute('data-title');
+                const id = card.getAttribute('data-id');
+                
+                totalPrice += price * qty;
+                orderItems.push({ id, title, price, qty });
+            }
+        });
+
+        document.getElementById('total-amount').innerText = totalPrice.toFixed(2);
+        document.getElementById('card-button').disabled = (totalPrice <= 0);
+    }
+
+    // 初始化 Square 金流
+    async function initializeSquare() {
+        if (!window.Square) {
+            document.getElementById('payment-status').innerText = '無法載入金流模組，請檢查網路連線。';
+            return;
+        }
+
+        try {
+            const payments = Square.payments(APPLICATION_ID, LOCATION_ID);
+            const card = await payments.card();
+            await card.attach('#card-container');
+
+            const cardButton = document.getElementById('card-button');
+            cardButton.addEventListener('click', async (event) => {
+                event.preventDefault();
+                
+                const parentName = document.getElementById('parent-name').value;
+                const parentEmail = document.getElementById('parent-email').value;
+                const studentName = document.getElementById('student-name').value;
+                const studentDiv = document.getElementById('student-div').value;
+
+                if (!parentName || !parentEmail || !studentName || !studentDiv) {
+                    alert('請填妥所有領取人資訊。');
+                    return;
+                }
+
+                cardButton.disabled = true;
+                const statusDiv = document.getElementById('payment-status');
+                statusDiv.className = '';
+                statusDiv.innerText = '正在進行安全加密連線，請稍候...';
+
+                try {
+                    const result = await card.tokenize();
+                    if (result.status === 'OK') {
+                        const token = result.token;
+                        
+                        const orderData = {
+                            token: token,
+                            parentName: parentName,
+                            parentEmail: parentEmail,
+                            studentName: studentName,
+                            studentDiv: studentDiv,
+                            totalAmount: totalPrice.toFixed(2),
+                            items: orderItems
+                        };
+
+                        statusDiv.innerText = '正在執行授權扣款、建立獨立發票並寫入系統...';
+
+                        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors', // 測試時如果遇到 CORS 問題可以先用 no-cors
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(orderData)
+                        });
+
+                        // 成功送出後給家長看這個畫面
+                        statusDiv.className = 'success-text';
+                        statusDiv.innerHTML = `🎉 付款成功！<br>已發送確認信至您的信箱，週五憑此學生姓名至辦公室領取。`;
+                        document.querySelectorAll('.quantity-input').forEach(i => i.value = 0);
+                        updateTotal();
+
+                    } else {
+                        statusDiv.className = 'error-text';
+                        statusDiv.innerText = '❌ 信用卡驗證失敗，請檢查卡號。';
+                        cardButton.disabled = false;
+                    }
+                } catch (e) {
+                    console.error(e);
+                    statusDiv.className = 'error-text';
+                    statusDiv.innerText = '系統連線發生異常，請重試或聯繫 PAC 管理人員。';
+                    cardButton.disabled = false;
+                }
+            });
+
+        } catch (e) {
+            console.error('Square 初始化錯誤: ', e);
+        }
+    }
+
+    initializeSquare();
+</script>
+
+</body>
+</html>
