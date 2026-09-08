@@ -21,9 +21,12 @@
         .container { max-width: 850px; margin: 0 auto; }
 
         header { text-align: center; margin-bottom: 50px; }
-        header h1 { font-family: 'Playfair Display', serif; color: var(--text-main); font-size: 42px; letter-spacing: 1px; margin-bottom: 20px; font-weight: 700; }
+        header h1 { font-family: 'Playfair Display', serif; color: var(--text-main); font-size: 42px; letter-spacing: 1px; margin-bottom: 5px; font-weight: 700; }
         header h1 span { font-style: italic; color: var(--accent-rose); }
-        .notice-box { display: inline-block; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 20px 40px; margin: 10px 0; text-align: center; }
+        
+        .school-subtitle { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px; }
+
+        .notice-box { display: inline-block; text-align: left; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 20px 40px; margin: 10px 0; }
         .highlight-text { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text-main); font-size: 14.5px; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0; }
 
         h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--text-main); margin-bottom: 25px; font-weight: 600; display: flex; align-items: center; }
@@ -80,12 +83,13 @@
 <div class="container">
     <header>
         <h1>Anderson <span>Spirit</span></h1>
-       <div class="notice-box">
-    <p class="highlight-text">📌 Orders close every Thursday at 9:00 PM.</p>
-    <p class="highlight-text">📦 Pick up at the school office on Fridays after school (2:45 PM).</p>
-    <p class="highlight-text">💵 Payment via e-Transfer only. Please include your Order Number in the transfer message.</p>
-    <p class="highlight-text">Henry Anderson Elementary Richmond BC Canada</p>
-</div>
+        <div class="school-subtitle">Henry Anderson Elementary, Richmond, BC, Canada</div>
+        
+        <div class="notice-box">
+            <p class="highlight-text">📌 Orders close every Thursday at 9:00 PM.</p>
+            <p class="highlight-text">📦 Pick up at the school office on Fridays after school (2:45 PM).</p>
+            <p class="highlight-text">💵 Payment via e-Transfer only. Please include your Order Number in the transfer message.</p>
+        </div>
     </header>
 
     <form id="order-form">
@@ -278,8 +282,6 @@
         };
 
         try {
-            // 注意：Google Apps Script 若沒有設好 CORS，使用 no-cors 模式前端無法讀取 response
-            // 但資料確實會送出。如果你的 GAS 有回傳 JSON，可拿掉 mode: 'no-cors'
             await fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors', 
